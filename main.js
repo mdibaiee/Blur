@@ -11,16 +11,22 @@ img.onload = function() {
 
 img.onload();
 
+radius.addEventListener('mousedown', function() {
+  radius.isMouseDown = true;
+});
+
+radius.addEventListener('mousemove', function() {
+  if(radius.isMouseDown) rshow.textContent = radius.value;
+})
+
 radius.onchange = function() {
-  rshow.textContent = radius.value;
-  setTimeout(function() {
-    c.drawImage(img, 0, 0);
-    for(var i = 0; i < +radius.value/5; i++) {
-      blur(5)
-    }
-    var modulo = +radius.value / 5;
-    if(modulo > 0) blur(modulo);
-  }, 100);
+  radius.isMouseDown = false;
+  c.drawImage(img, 0, 0);
+  for(var i = 0; i < +radius.value/5; i++) {
+    blur(5)
+  }
+  var modulo = +radius.value / 5;
+  if(modulo > 0) blur(modulo);
 }
 
 function gaussian(x, max) {
